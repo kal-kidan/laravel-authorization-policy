@@ -18,4 +18,20 @@ class BlogController extends Controller
       //   echo 'Not Allowed';
       // }
    }
+
+   public function store(Request $request)
+   {
+       $this->validate($request, [
+           'title' => 'required',
+           'content' => 'required'
+       ]);
+   
+       $input = $request->all();
+   
+       Blog::create($input);
+   
+       Session::flash('flash_message', 'Task successfully added!');
+   
+       return redirect()->back();
+   }
 }
