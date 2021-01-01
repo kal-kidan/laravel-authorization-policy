@@ -21,17 +21,13 @@ class BlogController extends Controller
 
    public function store(Request $request)
    {
-       $this->validate($request, [
-           'title' => 'required',
-           'content' => 'required'
-       ]);
-   
-       $input = $request->all();
-   
-       Blog::create($input);
-   
-       Session::flash('flash_message', 'Task successfully added!');
-   
-       return redirect()->back();
+      if(Gate::allows('create')){
+         $input = ["title"=>"Example Post","content"=>"Example content", "user_id"=>Auth::id()]; 
+          Blog::create($input);
+          echo "created successfuly";
+        }
+        else{
+           echo "you are not allowed to create a blog";
+        }
    }
 }

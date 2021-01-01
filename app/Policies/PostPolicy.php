@@ -41,7 +41,12 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        //
+        $id=$user->id;
+        if($id==1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
